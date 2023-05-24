@@ -1,6 +1,10 @@
+import PokemonList from "./components/PokemonList/PokemonList";
+
 function App() {
   return (
-    <div></div>
+    <main className="container">
+      <PokemonList />
+    </main>
   );
 }
 

@@ -1,9 +1,11 @@
 /* ---- Variables ---- */
 /* -- Typography -- */
 $main-font-family: "Montserrat", sans-serif;
+$font-weight: 400;
 
 /* -- Colors -- */
 $c-black: #000;
+$c-white: #fff;
 
 /* -- Media Query Breakpoints -- */
 $phone: 480px;
@@ -15,3 +17,4 @@ $desktop: 1400px;
 
 /* ---- Border Radius ---- */
 $border-radius: 16px;
+$large-border-radius: 32px;
