@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import PokemonList from "./components/PokemonList/PokemonList";
 import Search from "./components/Search/Search";
+import Pagination from "./components/Pagination/Pagination";
 
 function App() {
   const [pokemonList, setPokemonList] = useState([]);
-  const [currentPage, setCurrentPage] = useState(3);
+  const [currentPage, setCurrentPage] = useState(2);
   const [pokemonsPerPage, setPokemonsPerPage] = useState(20);
   const [searchValue, setSearchValue] = useState("");
 
@@ -41,6 +42,7 @@ function App() {
   return (
     <main className="container">
       <Search setPokemonList={setPokemonList} setSearchValue={setSearchValue} />
+      <Pagination pokemonsPerPage={pokemonsPerPage} setPokemonsPerPage={setPokemonsPerPage} currentPage={currentPage} setCurrentPage={setCurrentPage}/>
       <PokemonList
         pokemonList={pokemonListToShow}
         setPokemonList={setPokemonList}
