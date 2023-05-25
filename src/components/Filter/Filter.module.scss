@@ -1,0 +1,46 @@
+@import './../../styles/resources/';
+
+.wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 32px;
+    gap: 2px;
+    justify-content: center;
+}
+
+.type {
+    background: $c-ghost;
+    height: 40px;
+    width: 134px;
+    @include default-flex;
+    transition: .3s ease;
+
+    @include phone {
+        width: 49%;
+    }
+
+    &:hover {
+        cursor: pointer;
+        background: #00000050;
+    }
+
+    &:first-child {
+        border-top-left-radius: $small-border-radius;
+    }
+
+    &:last-child {
+        border-bottom-right-radius: $small-border-radius;
+    }
+
+    &:nth-child(9) {
+        border-top-right-radius: $small-border-radius;
+    }
+
+    &:nth-child(10) {
+        border-bottom-left-radius: $small-border-radius;
+    }
+
+    @include desktop {
+        border-radius: 0 !important;
+    }
+}

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import PokemonList from "./components/PokemonList/PokemonList";
 import Search from "./components/Search/Search";
 import Pagination from "./components/Pagination/Pagination";
+import Filter from "./components/Filter/Filter";
 
 function App() {
   const [pokemonList, setPokemonList] = useState([]);
@@ -17,7 +18,6 @@ function App() {
         );
         const data = await response.json();
         setPokemonList(data.results);
-        console.log(data);
       } catch (error) {
         console.log("Error to fetch data: ", error);
       }
@@ -43,6 +43,7 @@ function App() {
     <main className="container">
       <Search setPokemonList={setPokemonList} setSearchValue={setSearchValue} />
       <Pagination pokemonsPerPage={pokemonsPerPage} setPokemonsPerPage={setPokemonsPerPage} currentPage={currentPage} setCurrentPage={setCurrentPage}/>
+      <Filter />
       <PokemonList
         pokemonList={pokemonListToShow}
         setPokemonList={setPokemonList}

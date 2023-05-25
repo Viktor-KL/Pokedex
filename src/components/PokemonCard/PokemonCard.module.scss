@@ -16,6 +16,14 @@
     animation: pokemon-card-animation 0.3s ease;
   }
 
+  @include tablet-large {
+    width: 45%;
+  }
+
+  @include phone {
+    width: 100%;
+  }
+
   img {
     width: 140px;
     height: 140px;

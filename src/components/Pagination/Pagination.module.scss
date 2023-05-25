@@ -1,7 +1,7 @@
 @import './../../styles/resources/';
 
 .wrapper {
-    margin: 8px 0 32px;
+    margin: 8px 0;
     display: flex;
     gap: 1px;
   
@@ -10,9 +10,11 @@
       width: 100%;
       background: $c-ghost;
       @include default-flex;
+      transition: .3s ease;
 
       &:hover {
         cursor: pointer;
+        background: #00000050;
       }
   
       &:first-child {
