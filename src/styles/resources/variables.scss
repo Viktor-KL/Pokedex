@@ -6,6 +6,7 @@ $font-weight: 400;
 /* -- Colors -- */
 $c-black: #000;
 $c-white: #fff;
+$c-grey: #6C6A73;
 
 /* -- Media Query Breakpoints -- */
 $phone: 480px;
@@ -16,5 +17,6 @@ $laptop: 1200px;
 $desktop: 1400px;
 
 /* ---- Border Radius ---- */
+$small-border-radius: 8px;
 $border-radius: 16px;
 $large-border-radius: 32px;

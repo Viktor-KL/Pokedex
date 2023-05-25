@@ -1,0 +1,13 @@
+@import './../../styles/resources/';
+
+.search {
+    display: block;
+    height: 60px;
+    background: #00000030;
+    border-radius: $small-border-radius;
+    padding: 16px;
+    margin: 32px 0;
+    width: 100%;
+    font-size: 18px;
+    font-weight: $font-weight;
+}

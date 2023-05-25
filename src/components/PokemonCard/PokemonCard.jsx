@@ -45,7 +45,7 @@ export default function PokemonCard({ url }) {
       {pokemonDetails && (
         <div className={styles.details}>
           <p className={styles.tag}>
-            {types.map((type) => type.type.name).join(", ")}
+            # {types.map((type) => type.type.name).join(", ")}
           </p>
           <ul>
             {stats.map((stat) => (

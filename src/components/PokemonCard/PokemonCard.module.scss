@@ -1,32 +1,55 @@
-@import './../../styles/resources/';
+@import "./../../styles/resources/";
 
 .card {
-    width: 23%;
-    height: 260px;
-    @include blue-gradient;   
-    border-radius: $large-border-radius;
-    @include default-flex;
-    flex-direction: column;  
-    @include box-shadow;
-    position: relative;
+  width: 23%;
+  height: 260px;
+  @include green-gradient;
+  border-radius: $large-border-radius;
+  @include default-flex;
+  flex-direction: column;
+  @include box-shadow;
+  position: relative;
+  padding: 16px;
 
-    &:hover {
-        cursor: pointer;
-    }
+  &:hover {
+    cursor: pointer;
+    animation: pokemon-card-animation 0.3s ease;
+  }
 
-    img {
-        width: 140px;
-        height: 140px;
-    }
+  img {
+    width: 140px;
+    height: 140px;
+  }
 
-    h3 {
-        font-size: 24px;
-        color: $c-white;
-        font-weight: $font-weight;
-        text-transform: uppercase;
-    }
+  h3 {
+    font-size: 24px;
+    color: $c-white;
+    font-weight: $font-weight;
+    text-transform: uppercase;
+  }
 }
 
 .details {
-    position: absolute;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  color: $c-white;
+  @include borwn-gradient;
+  border-radius: $large-border-radius;
+  @include default-flex;
+  flex-direction: column;
+  text-align: center;
+  gap: 16px;
+
+  ul {
+    list-style-type: none;
+  }
 }
+
+.tag {
+  color: $c-white;
+  background: $c-black;
+  border-radius: $small-border-radius;
+  padding: 8px;
+}
+
