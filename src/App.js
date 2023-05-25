@@ -1,8 +1,11 @@
 import { useState, useEffect } from "react";
-import PokemonList from "./components/PokemonList/PokemonList";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Search from "./components/Search/Search";
 import Pagination from "./components/Pagination/Pagination";
 import Filter from "./components/Filter/Filter";
+import ShortPage from "./pages/ShortPage";
+import AvaragePage from "./pages/AvaragePage";
+import LongPage from "./pages/LongPage";
 
 function App() {
   const [pokemonList, setPokemonList] = useState([]);
@@ -14,7 +17,7 @@ function App() {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "https://pokeapi.co/api/v2/pokemon/?limit=1281"
+          "https://pokeapi.co/api/v2/pokemon/?limit=50"
         );
         const data = await response.json();
         setPokemonList(data.results);
@@ -41,15 +44,20 @@ function App() {
 
   return (
     <main className="container">
-      <Search setPokemonList={setPokemonList} setSearchValue={setSearchValue} />
-      <Pagination pokemonsPerPage={pokemonsPerPage} setPokemonsPerPage={setPokemonsPerPage} currentPage={currentPage} setCurrentPage={setCurrentPage}/>
-      <Filter />
-      <PokemonList
-        pokemonList={pokemonListToShow}
-        setPokemonList={setPokemonList}
-        limit={pokemonsPerPage}
-        currentPage={currentPage}
-      />
+      <BrowserRouter>
+        <Search
+          setPokemonList={setPokemonList}
+          setSearchValue={setSearchValue}
+        />
+        <Pagination />
+        <Filter />
+
+        <Routes>
+          <Route path="/" element={<AvaragePage />} />
+          <Route path="/short_page" element={<ShortPage />} />
+          <Route path="/long_page" element={<LongPage />} />
+        </Routes>
+      </BrowserRouter>
     </main>
   );
 }

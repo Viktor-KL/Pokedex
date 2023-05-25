@@ -1,23 +1,19 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import styles from "./Pagination.module.scss";
 
-export default function Pagination({ setPokemonsPerPage, setCurrentPage }) {
-  const handleButtonClick = (count, page) => {
-    setPokemonsPerPage(count);
-    setCurrentPage(page)
-  };
-
+export default function Pagination() {
   return (
     <section className={styles.wrapper}>
-      <div className={styles.item} onClick={() => handleButtonClick(10, 1)}>
+      <NavLink className={styles.item} to="/short_page">
         10
-      </div>
-      <div className={styles.item} onClick={() => handleButtonClick(20, 2)}>
+      </NavLink>
+      <NavLink className={styles.item} to="/">
         20
-      </div>
-      <div className={styles.item} onClick={() => handleButtonClick(50, 3)}>
+      </NavLink>
+      <NavLink className={styles.item} to="/long_page">
         50
-      </div>
+      </NavLink>      
     </section>
   );
 }

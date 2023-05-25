@@ -1,7 +1,7 @@
 import PokemonCard from './../PokemonCard/PokemonCard'
 import styles from './PokemonList.module.scss'
 
-export default function PokemonList({pokemonList, setPokemonList, limit, currentPage}) {
+export default function PokemonList({pokemonList}) {
   return (
     <div className={styles.list}>
         {pokemonList.map((item, key) => (
