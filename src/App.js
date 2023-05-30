@@ -3,9 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Search from "./components/Search/Search";
 import Pagination from "./components/Pagination/Pagination";
 import Filter from "./components/Filter/Filter";
-import ShortPage from "./pages/ShortPage";
 import AvaragePage from "./pages/AvaragePage";
-import LongPage from "./pages/LongPage";
 
 function App() {
   const [pokemonList, setPokemonList] = useState([]);
@@ -44,7 +42,7 @@ function App() {
   const handleSearch = async (value) => {
     try {
       const response = await fetch(
-        `https://pokeapi.co/api/v2/pokemon/${value}`
+        `https://pokeapi.co/api/v2/pokemon/${value}?limit=${pokemonsPerPage}`
       );
       const data = await response.json();
       setPokemonList([data]);
@@ -53,23 +51,43 @@ function App() {
     }
   };
 
-  let pokemonListToShow = pokemonList.slice(
-    (currentPage - 1) * pokemonsPerPage,
-    currentPage * pokemonsPerPage
-  );
+  const handleTypesClick = async (types) => {
+    const allPokemonsData = [];
+
+    for (let i = 0; i < types.length; i++) {
+      try {
+        const response = await fetch(
+          `https://pokeapi.co/api/v2/type/${types[i]}`
+        );
+        const data = await response.json();
+        const pokemonsToParse = data.pokemon.slice(
+          (currentPage - 1) * pokemonsPerPage,
+          currentPage * pokemonsPerPage
+        );
+
+        for (let j = 0; j < pokemonsToParse.length; j++) {
+          console.log(data.pokemon[j].pokemon.url);
+          const response2 = await fetch(data.pokemon[j].pokemon.url);
+          const data2 = await response2.json();
+
+          allPokemonsData.push(data2);
+        }
+      } catch (error) {
+        console.log("Error fetching data: ", error);
+      }
+    }
+    setPokemonList(allPokemonsData);
+  };
 
   return (
     <main className="container">
       <BrowserRouter>
         <Search handleSearch={handleSearch} />
         <Pagination setPokemonsPerPage={setPokemonsPerPage} />
-        <Filter />
+        <Filter handleTypesClick={handleTypesClick} />
 
         <Routes>
-          <Route
-            path="/"
-            element={<AvaragePage pokemons={pokemonListToShow} />}
-          />
+          <Route path="/" element={<AvaragePage pokemons={pokemonList} />} />
         </Routes>
       </BrowserRouter>
     </main>

@@ -5,9 +5,9 @@ export default function Search({ handleSearch }) {
   const [searchValue, setSearchValue] = useState("");
 
   return (
-    <div>
+    <div className={styles.wrapper}>
       <input type="text" placeholder="Search Pokemon" className={styles.search} onChange={(e) => setSearchValue(e.target.value)} />
-      <button onClick={() => handleSearch(searchValue)}>search</button>
+      <button className={styles.button} onClick={() => handleSearch(searchValue)}>search</button>
     </div>
   );
 }

@@ -1,5 +1,10 @@
 @import './../../styles/resources/';
 
+.wrapper {
+    display: flex;
+    gap: 16px;
+}
+
 .search {
     width: 100%;
     height: 60px;
@@ -9,4 +14,8 @@
     border-radius: $small-border-radius;
     padding: 16px;
     display: block;
+}
+
+.button {
+    @include button;
 }
