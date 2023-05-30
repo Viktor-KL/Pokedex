@@ -21,6 +21,7 @@ function App() {
         );
         const data = await response.json();
         setPokemonList(data.results);
+        console.log(data.results.type)
       } catch (error) {
         console.log("Error to fetch data: ", error);
       }
