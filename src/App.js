@@ -9,6 +9,7 @@ function App() {
   const [pokemonList, setPokemonList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [pokemonsPerPage, setPokemonsPerPage] = useState(20);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -44,6 +45,13 @@ function App() {
       const response = await fetch(
         `https://pokeapi.co/api/v2/pokemon/${value}?limit=${pokemonsPerPage}`
       );
+      if (response.status === 404) {
+        setError("Pokemon Not Found");
+        setTimeout(() => {
+          setError("");
+        }, 3000);
+        return;
+      }
       const data = await response.json();
       setPokemonList([data]);
     } catch (error) {
@@ -82,7 +90,7 @@ function App() {
   return (
     <main className="container">
       <BrowserRouter>
-        <Search handleSearch={handleSearch} />
+        <Search handleSearch={handleSearch} error={error} setError={setError}/>
         <Pagination setPokemonsPerPage={setPokemonsPerPage} />
         <Filter handleTypesClick={handleTypesClick} />
 

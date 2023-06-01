@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import styles from './Search.module.scss'
 
-export default function Search({ handleSearch }) {
+export default function Search({ handleSearch, error, setError }) {
   const [searchValue, setSearchValue] = useState("");
-  const [error, setError] = useState("");
 
   const handleSearchClick = () => {
     if (searchValue.trim() === "") {
