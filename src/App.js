@@ -4,25 +4,29 @@ import Search from "./components/Search/Search";
 import Pagination from "./components/Pagination/Pagination";
 import Filter from "./components/Filter/Filter";
 import AvaragePage from "./pages/AvaragePage";
+import PagePagination from "./components/PagePagination/PagePagination";
 
 function App() {
   const [pokemonList, setPokemonList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [pokemonsPerPage, setPokemonsPerPage] = useState(20);
+  const [totalCount, setTotalCount] = useState(0);
   const [error, setError] = useState("");
+  const [currentType, setCurrentType] = useState("all");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        const offset = pokemonsPerPage * (currentPage - 1);
         const response = await fetch(
-          `https://pokeapi.co/api/v2/pokemon/?limit=${pokemonsPerPage}`
+          `https://pokeapi.co/api/v2/pokemon/?limit=${pokemonsPerPage}&offset=${offset}`
         );
         const data = await response.json();
+        console.log(data);
 
         const allPokemonsData = [];
         for (let i = 0; i < data.results.length; i++) {
           try {
-            console.log(data.results[i].url);
             const responseData = await fetch(data.results[i].url);
             const res = await responseData.json();
             allPokemonsData.push(res);
@@ -32,13 +36,14 @@ function App() {
         }
 
         setPokemonList(allPokemonsData);
+        setTotalCount(data.count);
       } catch (error) {
         console.log("Error to fetch data: ", error);
       }
     };
 
     fetchData();
-  }, [pokemonsPerPage]);
+  }, [pokemonsPerPage, currentPage]);
 
   const handleSearch = async (value) => {
     try {
@@ -54,6 +59,7 @@ function App() {
       }
       const data = await response.json();
       setPokemonList([data]);
+      setCurrentType("search");
     } catch (error) {
       console.log("Error to fetch data: ", error);
     }
@@ -61,6 +67,12 @@ function App() {
 
   const handleTypesClick = async (types) => {
     const allPokemonsData = [];
+
+    if (types.length === 0) {
+      setCurrentType("all");
+    } else {
+      setCurrentType("types");
+    }
 
     for (let i = 0; i < types.length; i++) {
       try {
@@ -90,13 +102,22 @@ function App() {
   return (
     <main className="container">
       <BrowserRouter>
-        <Search handleSearch={handleSearch} error={error} setError={setError}/>
+        <Search handleSearch={handleSearch} error={error} setError={setError} />
         <Pagination setPokemonsPerPage={setPokemonsPerPage} />
         <Filter handleTypesClick={handleTypesClick} />
 
         <Routes>
           <Route path="/" element={<AvaragePage pokemons={pokemonList} />} />
         </Routes>
+        
+        {currentType === "all" && (
+          <PagePagination
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            totalCount={totalCount}
+            limit={pokemonsPerPage}
+          />
+        )}
       </BrowserRouter>
     </main>
   );

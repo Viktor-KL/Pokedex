@@ -1,0 +1,20 @@
+@import './../../styles/resources/';
+
+.wrapper {
+    margin: 40px 0;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.button {
+    color: $c-white;
+    background: $c-ghost;
+    height: 50px;
+    width: 50px;
+    font-size: 16px;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
