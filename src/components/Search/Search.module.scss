@@ -1,21 +1,33 @@
-@import './../../styles/resources/';
+@import "./../../styles/resources/";
 
 .wrapper {
-    display: flex;
-    gap: 16px;
+  display: flex;
+  gap: 16px;
 }
 
 .search {
-    width: 100%;
-    height: 60px;
-    font-size: 18px;
-    font-weight: $font-weight;
-    background: $c-ghost;
-    border-radius: $small-border-radius;
-    padding: 16px;
-    display: block;
+  width: 100%;
+  height: 60px;
+  font-size: 18px;
+  font-weight: $font-weight;
+  background: $c-ghost;
+  border-radius: $small-border-radius;
+  padding: 16px;
+  display: block;
 }
 
 .button {
-    @include button;
+  @include button;
+}
+
+.error {
+background: red;
+color: $c-white;
+border-radius: $border-radius;
+padding: 40px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999;
 }
