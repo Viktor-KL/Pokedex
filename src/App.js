@@ -22,23 +22,24 @@ function App() {
           `https://pokeapi.co/api/v2/pokemon/?limit=${pokemonsPerPage}&offset=${offset}`
         );
         const data = await response.json();
-        console.log(data);
 
-        const allPokemonsData = [];
-        for (let i = 0; i < data.results.length; i++) {
-          try {
-            const responseData = await fetch(data.results[i].url);
-            const res = await responseData.json();
-            allPokemonsData.push(res);
-          } catch (error) {
-            console.log("Error fetching Pokemon data: ", error);
-          }
-        }
+        const fetchPokemonDetails = async (url) => {
+          console.log(`Fetching data for: ${url}`);
+          const responseData = await fetch(url);
+          const pokemonData = await responseData.json();
+          return pokemonData;
+        };
+
+        const allPokemonsDataPromises = data.results.map((result) => {
+          return fetchPokemonDetails(result.url);
+        });
+
+        const allPokemonsData = await Promise.all(allPokemonsDataPromises);
 
         setPokemonList(allPokemonsData);
         setTotalCount(data.count);
       } catch (error) {
-        console.log("Error to fetch data: ", error);
+        console.log("Error fetching data: ", error);
       }
     };
 
@@ -109,7 +110,7 @@ function App() {
         <Routes>
           <Route path="/" element={<AvaragePage pokemons={pokemonList} />} />
         </Routes>
-        
+
         {currentType === "all" && (
           <PagePagination
             currentPage={currentPage}
