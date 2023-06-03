@@ -75,6 +75,11 @@ function App() {
       setCurrentType("types");
     }
 
+    const fetchPokemonDetails = async (url) => {
+      const response = await fetch (url)
+      return await response.json()
+    }
+
     for (let i = 0; i < types.length; i++) {
       try {
         const response = await fetch(
@@ -86,8 +91,14 @@ function App() {
           currentPage * pokemonsPerPage
         );
 
+        const fetchPokemonPromises = pokemonsToParse.map((pokemon) => {
+          return fetchPokemonDetails(pokemon.pokemon.url)
+        })
+
+        const pokemonsData = await Promise.all(fetchPokemonPromises);
+        allPokemonsData.push(...pokemonsData)
+
         for (let j = 0; j < pokemonsToParse.length; j++) {
-          console.log(data.pokemon[j].pokemon.url);
           const response2 = await fetch(data.pokemon[j].pokemon.url);
           const data2 = await response2.json();
 
@@ -111,14 +122,12 @@ function App() {
           <Route path="/" element={<AvaragePage pokemons={pokemonList} />} />
         </Routes>
 
-        {currentType === "all" && (
-          <PagePagination
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
-            totalCount={totalCount}
-            limit={pokemonsPerPage}
-          />
-        )}
+        <PagePagination
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          totalCount={totalCount}
+          limit={pokemonsPerPage}
+        />
       </BrowserRouter>
     </main>
   );
